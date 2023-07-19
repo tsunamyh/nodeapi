@@ -6,16 +6,6 @@ function getId() {
   return nanoid().slice(0, 5)
 }
 
-function initializeUsers() {
-  return ([
-    { id: getId(), firstname: 'Ed Carter', lastname: 'hero' },
-    { id: getId(), firstname: 'Mary Edwards', lastname: 'super hero' },
-  ]);
-}
-
-// FAKE IN-MEMORY USERS "TABLE"
-// let users = initializeUsers()
-
 // DATABASE ACCESS FUNCTIONS
 async function find() {
   // SELECT * FROM users;
@@ -37,7 +27,6 @@ async function findById(id) {
     return Promise.reject({ message: "The user information could not be retrieved" })
   }
   // SELECT * FROM users WHERE id = 1;
-  const user = users.find(d => d.id === id);
 }
 
 async function insert({ firstname, lastname }) {
@@ -50,7 +39,6 @@ async function insert({ firstname, lastname }) {
     console.log("insert failed", err.stack);
     return Promise.reject({ message: "There was an error while saving the user to the database" })
   }
-  users.push(newUser);
 }
 
 async function update(id, changes) {
@@ -66,10 +54,6 @@ async function update(id, changes) {
     return Promise.reject({ message: "The user information could not be modified" })
   }
   // UPDATE users SET name = 'foo', bio = 'bar WHERE id = 1;
-  const user = users.find(user => user.id === id);
-
-  const updatedUser = { ...changes, id };
-  users = users.map(d => (d.id === id) ? updatedUser : d);
 }
 
 async function remove(id) {
@@ -81,13 +65,6 @@ async function remove(id) {
     return Promise.reject({ message: "The user could not be removed" })
   }
   // DELETE FROM users WHERE id = 1;
-  const user = users.find(user => user.id === id);
-  if (!user) return Promise.resolve(null);
-  users = users.filter(d => d.id !== id);
-}
-
-const resetDB = () => { // ONLY TESTS USE THIS ONE
-  users = initializeUsers()
 }
 
 module.exports = {
@@ -96,5 +73,4 @@ module.exports = {
   insert,
   update,
   remove,
-  resetDB, // ONLY TESTS USE THIS ONE
 }

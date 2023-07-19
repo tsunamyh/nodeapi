@@ -6,15 +6,6 @@ test('[0] sanity check', () => {
   expect(true).not.toBe(false)
 })
 
-const initialUsers = [
-  { firstname: 'Ed Carter', lastname: 'hero' },
-  { firstname: 'Mary Edwards', lastname: 'super hero' },
-]
-
-beforeEach(() => {
-  User.resetDB()
-})
-
 describe('server.js', () => {
   // 👉 USERS
   // 👉 USERS
