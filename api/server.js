@@ -1,10 +1,13 @@
 // BUILD YOUR SERVER HERE
 const express = require('express');
-const http = require('http');
+const router = require('./routes');
 
 const app = express();
 
+app.use(express.json())
+
+app.use("/",router)
 
 
 
-module.exports = {}; // EXPORT YOUR SERVER instead of {}
+module.exports = app; // EXPORT YOUR SERVER instead of {}
